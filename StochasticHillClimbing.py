@@ -22,10 +22,12 @@ def stochastic_hill_climbing(list):
             end = (datetime.datetime.now() - start).seconds
             if end >= max_duration:
                 break
+
         current_list = neighbor_list
         neighbor_list = neighbor(current_list)
         current_value = objectivefunction(current_list)
         neighbor_value = objectivefunction(neighbor_list)
+        
         if end >= max_duration:
             break
         i += 1
