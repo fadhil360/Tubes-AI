@@ -169,6 +169,20 @@ def objectivefunction(list):
         if(sumlist==MAGICNUMBER):
             score+=1 
     return score
+def neighbor(list):
+    neighbor = list[:]
+    x = random.randint(0, 124)
+    y = random.randint(0, 124)
+    while x == y:
+        y = random.randint(0, 124)
+    # if x != y:
+    #     a = neighbor[x]
+    #     b = neighbor[y]
+    #     neighbor[x] = b
+    #     neighbor[y] = a
+    neighbor[x], neighbor[y] = neighbor[y], neighbor[x]
+    return neighbor
+    
 initialList=initial()
 matrixlist =listtomatrix(initialList)
 a=objectivefunction(initialList)
