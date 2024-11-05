@@ -1,5 +1,5 @@
+import numpy as np
 import random
-MAGICNUMBER=315
 def initial():
     initialList=[]
     for x in range(1,126):
@@ -34,141 +34,65 @@ def matrixtolist(matrix):
                 initialList.append(k)
     return initialList
 
-def objectivefunction(list):
-    score=0
-    # kiri kanan
-    index=0
-    for i in range(1,6):
-        for j in range(1,6):
-            sumlist=0
-            for k in range(1,6):
-                sumlist+=list[index]
-                index+=1
-            if(sumlist==MAGICNUMBER):
-                score+=1 
-    # depan belakang
-    index=0
-    x=0
-    for i in range(1,6):
-        for j in range(1,6):
-            sumlist=0
-            for k in range(1,6):
-                sumlist+=list[index]
-                index=index+25
-            x+=1
-            index=x
-            if(sumlist==MAGICNUMBER):
-                score+=1 
-    # atas bawah
-    index=0
-    x=0
-    z=0
-    for i in range(1,6):
-        for j in range(1,6):
-            sumlist=0
-            for k in range(1,6):
-                sumlist+=list[index]
-                index=index+5
-            x+=1
-            index=x+z
-            if(sumlist==MAGICNUMBER):
-                score+=1 
-        z+=25
-        x=0
-        index=z
-    #diagonal ruang 1
-    sumlist=0
-    sumlist=sumlist+list[0]+list[31]+list[62]+list[93]+list[124]
-    if(sumlist==MAGICNUMBER):
-        score+=1 
-    #diagonal ruang 2
-    sumlist=0
-    sumlist=sumlist+list[4]+list[33]+list[62]+list[91]+list[120]
-    if(sumlist==MAGICNUMBER):
-        score+=1
-    #diagonal ruang 3
-    sumlist=0
-    sumlist=sumlist+list[20]+list[41]+list[62]+list[83]+list[104]
-    if(sumlist==MAGICNUMBER):
-        score+=1
-    #diagonal ruang 4
-    sumlist=0
-    sumlist=sumlist+list[24]+list[43]+list[62]+list[81]+list[100]
-    if(sumlist==MAGICNUMBER):
-        score+=1
-    #diagonal depan belakang 1
-    index=0
-    z=0
-    for j in range(1,6):
-        sumlist=0
-        for k in range(1,6):
-            sumlist+=list[index]
-            index+=6
-        z+=25
-        index=z
-        if(sumlist==MAGICNUMBER):
-            score+=1 
-    #diagonal depan belakang 2
-    index=4
-    z=0
-    for j in range(1,6):
-        sumlist=0
-        for k in range(1,6):
-            sumlist+=list[index]
-            index+=4
-        z+=25
-        index=z+4
-        if(sumlist==MAGICNUMBER):
-            score+=1 
-    #diagonal kiri kanan 1
-    index=0
-    z=0
-    for j in range(1,6):
-        sumlist=0
-        for k in range(1,6):
-            sumlist+=list[index]
-            index+=30
-        z+=1
-        index=z
-        if(sumlist==MAGICNUMBER):
-            score+=1 
-    #diagonal kiri kanan 2
-    index=20
-    z=0
-    for j in range(1,6):
-        sumlist=0
-        for k in range(1,6):
-            sumlist+=list[index]
-            index+=20
-        z+=1
-        index=z+20
-        if(sumlist==MAGICNUMBER):
-            score+=1 
-    #diagonal atas bawah 1
-    index=0
-    z=0
-    for j in range(1,6):
-        sumlist=0
-        for k in range(1,6):
-            sumlist+=list[index]
-            index+=26
-        z+=5
-        index=z
-        if(sumlist==MAGICNUMBER):
-            score+=1 
-    #diagonal atas bawah 2
-    index=4
-    z=0
-    for j in range(1,6):
-        sumlist=0
-        for k in range(1,6):
-            sumlist+=list[index]
-            index+=24
-        z+=5
-        index=z
-        if(sumlist==MAGICNUMBER):
-            score+=1 
+
+def objectivefunction(arr):
+    MAGICNUMBER = 315 # Define your MAGICNUMBER here
+    score = 0
+
+    # Reshape the input list into a 5x5x5 3D numpy array
+    cube = np.array(arr).reshape(5, 5, 5)
+
+    # Check left-right slices
+    for i in range(5):
+        for j in range(5):
+            if cube[i, j, :].sum() == MAGICNUMBER:
+                score += 1
+
+    # Check front-back slices
+    for i in range(5):
+        for j in range(5):
+            if cube[i, :, j].sum() == MAGICNUMBER:
+                score += 1
+
+    # Check top-bottom slices
+    for i in range(5):
+        for j in range(5):
+            if cube[:, i, j].sum() == MAGICNUMBER:
+                score += 1
+
+    # Check space diagonals
+    if np.sum([cube[i, i, i] for i in range(5)]) == MAGICNUMBER:
+        score += 1
+    if np.sum([cube[i, 4 - i, i] for i in range(5)]) == MAGICNUMBER:
+        score += 1
+    if np.sum([cube[4 - i, i, i] for i in range(5)]) == MAGICNUMBER:
+        score += 1
+    if np.sum([cube[4 - i, 4 - i, i] for i in range(5)]) == MAGICNUMBER:
+        score += 1
+
+    # Check front-back diagonals
+    for j in range(5):
+        if np.sum([cube[i, i, j] for i in range(5)]) == MAGICNUMBER:
+            score += 1
+        if np.sum([cube[i, 4 - i, j] for i in range(5)]) == MAGICNUMBER:
+            score += 1
+
+    # Check left-right diagonals
+    for j in range(5):
+        if np.sum([cube[i, j, i] for i in range(5)]) == MAGICNUMBER:
+            score += 1
+        if np.sum([cube[4 - i, j, i] for i in range(5)]) == MAGICNUMBER:
+            score += 1
+
+    # Check top-bottom diagonals
+    for j in range(5):
+        if np.sum([cube[j, i, i] for i in range(5)]) == MAGICNUMBER:
+            score += 1
+        if np.sum([cube[j, 4 - i, i] for i in range(5)]) == MAGICNUMBER:
+            score += 1
+
     return score
+
 def neighbor(list):
     neighbor = list[:]
     x = random.randint(0, 124)
@@ -185,7 +109,9 @@ def neighbor(list):
     
 initialList=initial()
 matrixlist =listtomatrix(initialList)
-a=objectivefunction(initialList)
+a=objectivefunction([1, 42, 22, 53, 100, 81, 10, 68, 117, 44, 33, 46, 45, 98, 93, 28, 6, 48, 7, 18, 95, 120, 9, 97, 60, 38, 54, 125, 94, 70, 116, 83, 73, 39, 4, 40, 
+121, 84, 59, 11, 103, 66, 16, 43, 87, 56, 27, 85, 80, 67, 82, 118, 30, 110, 2, 113, 119, 105, 102, 72, 104, 13, 76, 55, 79, 29, 108, 78, 24, 58, 
+112, 115, 19, 122, 14, 25, 50, 37, 107, 96, 111, 99, 51, 31, 23, 88, 12, 65, 35, 41, 86, 21, 124, 92, 75, 5, 57, 64, 52, 34, 61, 17, 101, 89, 47, 71, 62, 36, 26, 15, 106, 32, 109, 74, 91, 69, 114, 49, 3, 77, 8, 90, 20, 123, 63])
 print("SCORE "+ str(a))
 print(initialList)
 for i in range(0,5):
