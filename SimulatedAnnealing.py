@@ -9,12 +9,6 @@ from mpl_toolkits.mplot3d import Axes3D
 import random
 import datetime
 import math
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import random
-import datetime
-import math
 
 plotarray = []
 temperaturplot = []
@@ -23,14 +17,8 @@ max_duration = int(input("duration (default = 120) = "))
 if max_duration > 0:
     truth = 1
 else:
-if max_duration > 0:
-    truth = 1
-else:
     max_duration = 120
 max_temperature = int(input("temperature (default = 12000) = "))
-if max_temperature > 0:
-    truth = 1
-else:
 if max_temperature > 0:
     truth = 1
 else:
@@ -42,19 +30,17 @@ def Simulated_Annealing(list):
     global stuck
     global i
     i = 0
-    global i
-    i = 0
     current_list = list[:]
     current_value = objectivefunction(current_list)
 
     start = datetime.datetime.now()
     end = 0
     while True:
-    while True:
         print(i, " : ", current_value)
         plotarray.append(current_value)
         neighbor_list = neighbor(current_list)
         neighbor_value = objectivefunction(neighbor_list)
+        temperature = max_temperature
 
         while current_value >= neighbor_value:
             neighbor_list = neighbor(current_list)
@@ -78,6 +64,11 @@ def Simulated_Annealing(list):
             if end >= max_duration:
                 break
 
+        current_list = neighbor_list
+        neighbor_list = neighbor(current_list)
+        current_value = objectivefunction(current_list)
+        neighbor_value = objectivefunction(neighbor_list)
+        i += 1
         if end >= max_duration:
             break
 
