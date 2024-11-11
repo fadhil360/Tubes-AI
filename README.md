@@ -22,32 +22,32 @@ Untuk menjalankan salah satu algoritma dapat dilakukan dengan melakukan run code
 Algoritma-algoritma yang dapat dipilih:
 1. SteepestAscentHillClimbing :
    Saat di run, user akan diminta untuk menginput duration
-   <img src="..\galeri\Screenshot 2024-11-11 224042.png"></img>
+   <img src="galeri\Screenshot 2024-11-11 224042.png"></img>
    Setelah di run menghasilkan output
    <img src=""></img>
 2. SidewayMoveHillClimbing :
    Saat di run, user akan diminta untuk menginput duration dan sidewaymove
-   <img src="..\galeri\Screenshot 2024-11-11 224414.png"></img>
+   <img src="galeri\Screenshot 2024-11-11 224414.png"></img>
    Setelah di run menghasilkan output
    <img src=""></img>
 3. SimulatedAnnealing :
    Saat di run, user akan diminta untuk menginput duration dan tenperature
-   <img src="..\galeri\Screenshot 2024-11-11 230356.png"></img>
+   <img src="galeri\Screenshot 2024-11-11 230356.png"></img>
    Setelah di run menghasilkan output
    <img src=""></img>
 4. StochasticHillClimbing :
    Saat di run, user akan diminta untuk menginput duration
-   <img src="..\galeri\Screenshot 2024-11-11 230627.png"></img>
+   <img src="galeri\Screenshot 2024-11-11 230627.png"></img>
    Setelah di run menghasilkan output
    <img src=""></img>
 5. RandomRestartHillClimmbing
    Saat di run, user akan diminta untuk menginput nilai hillclimbing yang ingio digunakan, durasi, dan     restart
-   <img src="..\galeri\Screenshot 2024-11-11 225536.png"></img>
+   <img src="galeri\Screenshot 2024-11-11 225536.png"></img>
    Setelah di run menghasilkan output
    <img src=""></img>
 6. genetic
       Saat di run, user akan diminta untuk menginput jumlah populasi dan jumlah iterasi
-   <img src="..\galeri\Screenshot 2024-11-11 225658.png"></img>
+   <img src="galeri\Screenshot 2024-11-11 225658.png"></img>
    Setelah di run menghasilkan output
    <img src=""></img>
  
