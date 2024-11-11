@@ -26,6 +26,16 @@ def population(jumlahPopulasi):
     
     return populationList , probability
 
+def nextPopulation(populationarray):
+    fitnessFunction = []
+    probability = []
+    populationList=populationarray
+    for popu in populationarray:
+        fitnessFunction.append(objectivefunction(popu)+1)
+    total_fitness = sum(fitnessFunction)
+    probability = [fitness / total_fitness for fitness in fitnessFunction]
+    return populationList , probability
+        
 # def selection(jumlahParent, populationList, probability):
 #     parents = []
 #     scalePemilihan = []
@@ -90,23 +100,41 @@ def mutation(offspring):
 
     return offspring
 
-def geneticAlgorithm(jumlahPopulasi): # sementara
+def geneticAlgorithm(): # sementara
+    jumlahPopulasi=int(input("jumlahPopulasi = "))
+    jumlahIterasi=int(input("jumlahIterasi = "))
+    jumlahPopulasi*=2
+    offspringarray=[]
+    nextoffspring=[]
+    highestoffspring=0
+    highestoffspringarray=[]
     populationList, probability = population(jumlahPopulasi)
-    parents = selection(4, populationList, probability)
-    offspring1, offspring2 = crossover(parents[0], parents[1])
-    offspring3, offspring4 = crossover(parents[2], parents[3])
-    offspring1 = mutation(offspring1)
-    offspring2 = mutation(offspring2)
-    offspring3 = mutation(offspring3)
-    offspring4 = mutation(offspring4)
+    for i in range(jumlahIterasi):
+        if len(nextoffspring)!=0:
+            populationList, probability =nextPopulation(nextoffspring)
+        parents = selection(jumlahPopulasi, populationList, probability)
+        for x in range(0,int(len(parents)/2)):
+            offspring1, offspring2 = crossover(parents[x], parents[x+int(len(parents)/2)])
+            offspringarray.append(offspring1)
+            offspringarray.append(offspring2)
+            nextoffspring=[]
+            for off in offspringarray:
+                off = mutation(off)
+                nextoffspring.append(off)
+                print(objectivefunction(off))
+    for off in nextoffspring:
+        if highestoffspring<objectivefunction(off):
+            highestoffspring=objectivefunction(off)
+            highestoffspringarray=off
+    print(highestoffspringarray)
+    print(highestoffspring)
+    # print(objectivefunction(offspring1))
+    # print(objectivefunction(offspring2))
+    # print(objectivefunction(offspring3))
+    # print(objectivefunction(offspring4))
 
-    print(objectivefunction(offspring1))
-    print(objectivefunction(offspring2))
-    print(objectivefunction(offspring3))
-    print(objectivefunction(offspring4))
 
-
-geneticAlgorithm(4)
+geneticAlgorithm()
 # offspring1, offspring2 = crossover(parent1, parent2)
 # offspring1 = mutation(offspring1)
 # offspring2 = mutation(offspring2)
