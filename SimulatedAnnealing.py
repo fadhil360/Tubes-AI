@@ -58,7 +58,8 @@ def Simulated_Annealing(list):
                 current_value = objectivefunction(current_list)
                 temperature = max_temperature
                 stuck += 1
-            temperature -= 1
+            else:
+                temperature -= 1
         else:
             truth = 1
         i += 1
