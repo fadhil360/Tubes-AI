@@ -48,6 +48,8 @@ Algoritma-algoritma yang dapat dipilih:
 6. genetic
       Saat di run, user akan diminta untuk menginput jumlah populasi dan jumlah iterasi
    <img src="..\galeri\Screenshot 2024-11-11 225658.png"></img>
-   Setelah di run menghasilkan output
-   <img src=""></img>
- 
+   
+Setelah di run menghasilkan output total waktu, total iterasi, visualisasi, dan plot nilai objective function
+<img src="galeri\image.png"></img>
+<img src="galeri\Screenshot 2024-11-11 203142.png"></img>
+ <img src="galeri\Screenshot 2024-11-11 211403.png"></img>
