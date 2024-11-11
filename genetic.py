@@ -1,7 +1,9 @@
 from Creating import initial, objectivefunction;
 from typing import List;
 import random;
-
+import datetime
+import matplotlib.pyplot as plt
+import numpy as np
 # parent1=[86, 122, 70, 93, 102, 125, 110, 120, 73, 76, 21, 106, 1, 117, 40, 25, 52, 61, 19, 11, 45, 57, 51, 109, 6, 4, 100, 3, 69, 33, 16, 65, 108, 12, 15, 99, 84, 60, 104, 53, 74, 24, 103, 75, 18, 118, 123, 98, 64, 91, 107, 17, 26, 113, 36, 2, 63, 5, 116, 27, 85, 67, 78, 112, 82, 31, 83, 95, 97, 50, 115, 39, 35, 41, 9, 77, 20, 105, 72, 42, 14, 13, 49, 56, 92, 79, 7, 34, 71, 68, 43, 80, 81, 46, 66, 62, 87, 54, 59, 29, 111, 22, 44, 48, 90, 94, 38, 119, 114, 10, 121, 28, 58, 32, 89, 101, 37, 23, 88, 30, 124, 96, 47, 8, 55]
 # parent2=[5, 72, 124, 60, 48, 12, 31, 52, 21, 71, 51, 44, 16, 22, 26, 106, 33, 42, 110, 81, 103, 37, 23, 34, 120, 9, 45, 119, 86, 14, 61, 56, 53, 43, 32, 85, 1, 104, 66, 19, 20, 73, 41, 79, 87, 90, 105, 46, 47, 24, 38, 6, 63, 114, 118, 69, 11, 94, 102, 68, 112, 57, 7, 76, 49, 80, 116, 92, 18, 59, 109, 77, 25, 113, 29, 2, 100, 122, 78, 40, 89, 13, 83, 84, 39, 74, 82, 125, 97, 123, 96, 108, 55, 70, 10, 27, 28, 50, 115, 75, 5, 3, 35, 65, 91, 107, 101, 111, 30, 15, 64, 117, 36, 88, 99, 98, 58, 54, 121, 17, 4, 67, 8, 62, 93]
 
@@ -99,11 +101,46 @@ def mutation(offspring):
             offspring[replaceIndex] = temp.pop(0)
 
     return offspring
+def display_3d_cube(data,end):
+    fig = plt.figure(figsize=(10, 10))
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Create a 5x5x5 grid
+    x, y, z = np.meshgrid(range(5), range(5), range(5))
+
+    # Flatten data for easier iteration
+    values = np.array(data).flatten()
+    idx = 0
+
+    for xi, yi, zi in zip(x.flatten(), y.flatten(), z.flatten()):
+        # Set a unique color based on the value
+        color = plt.cm.viridis(values[idx] / max(values))
+        ax.text(xi, yi, zi, str(values[idx]), color=color,
+                ha='center', va='center', fontsize=10)
+        idx += 1
+
+    # Set plot limits and labels
+    ax.set_xlim(0, 4)
+    ax.set_ylim(0, 4)
+    ax.set_zlim(0, 4)
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_zlabel("Z")
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.set_zticklabels([])
+    if end==1:
+        plt.title("Final 3D Cube Visualization with Stochastic")
+    else:
+        plt.title("Initial 3D Cube Visualization with Stochastic")
+
+    plt.show()
 
 def geneticAlgorithm(): # sementara
     jumlahPopulasi=int(input("jumlahPopulasi = "))
     jumlahIterasi=int(input("jumlahIterasi = "))
-    jumlahPopulasi*=2
+    jumlahPopulasi*=2 #agar semua ada pasangan
+    start = datetime.datetime.now()
     offspringarray=[]
     nextoffspring=[]
     highestoffspring=0
@@ -121,13 +158,16 @@ def geneticAlgorithm(): # sementara
             for off in offspringarray:
                 off = mutation(off)
                 nextoffspring.append(off)
-                print(objectivefunction(off))
     for off in nextoffspring:
         if highestoffspring<objectivefunction(off):
             highestoffspring=objectivefunction(off)
             highestoffspringarray=off
-    print(highestoffspringarray)
-    print(highestoffspring)
+    print("Nilai Objective function= ",highestoffspring)
+    print("Jumlah populasi= ",jumlahPopulasi)
+    print("Banyak iterasi= ",jumlahIterasi)
+    print("Durasi proses pencarian= ",(datetime.datetime.now() - start))
+    final_array = np.array(highestoffspringarray).reshape((5, 5, 5))
+    display_3d_cube(final_array,1)
     # print(objectivefunction(offspring1))
     # print(objectivefunction(offspring2))
     # print(objectivefunction(offspring3))

@@ -4,13 +4,19 @@ import matplotlib.pyplot as plt
 
 plotarray=[]
 max_iteration = int(input("banyak iterasi (default = 1000) = "))
-if max_iteration <= 0:
+if max_iteration > 0:
+    truth = 1
+else:
     max_iteration = 1000
 max_duration = int(input("duration (default = 120) = "))
-if max_duration <= 0:
+if max_duration > 0:
+    truth = 1
+else:
     max_duration = 120
 max_sidewaymove = int(input("sidewaymove (default = 5) = "))
-if max_sidewaymove < 0:
+if max_sidewaymove >= 0:
+    truth = 1
+else:
     max_sidewaymove = 5
 
 def SidewayMove_hill_climbing(list):

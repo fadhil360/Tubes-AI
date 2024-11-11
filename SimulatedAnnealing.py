@@ -13,13 +13,19 @@ plotarray=[]
 temperaturplot=[]
 temperaturploti=[]
 max_iteration = int(input("banyak iterasi (default = 1000) = "))
-if max_iteration <= 0:
+if max_iteration > 0:
+    truth = 1
+else:
     max_iteration = 1000
 max_duration = int(input("duration (default = 120) = "))
-if max_duration <= 0:
+if max_duration > 0:
+    truth = 1
+else:
     max_duration = 120
 max_temperature = int(input("temperature (default = 12000) = "))
-if max_temperature <= 0:
+if max_temperature > 0:
+    truth = 1
+else:
     max_temperature = 12000
 stuck = 0
 
@@ -119,9 +125,9 @@ def display_3d_cube(data,end):
     ax.set_yticklabels([])
     ax.set_zticklabels([])
     if end==1:
-        plt.title("Final 3D Cube Visualization with Simulated Annealing Results")
+        plt.title("Final 3D Cube Visualization with Simulated Annealing")
     else:
-        plt.title("Initial 3D Cube Visualization with Simulated Annealing Results")
+        plt.title("Initial 3D Cube Visualization with Simulated Annealing")
 
     plt.show()
 
