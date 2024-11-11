@@ -2,7 +2,6 @@ from Creating import *
 import datetime
 import matplotlib.pyplot as plt
 
-<< << << < HEAD
 plotarray = []
 max_duration = int(input("duration (default = 120) = "))
 if max_duration > 0:
@@ -14,19 +13,6 @@ else:
 def stochastic_hill_climbing(list):
     global i
     i = 0
-
-
-== == == =
-plotarray = []
-max_duration = 120
-
-
-def stochastic_hill_climbing(list):
-    global i
-    i = 0
-
-
->>>>>> > 2c0e0ad8b411470bab3f78a9b4ef9bb33a1a6ac5
     current_list = list[:]
     current_value = objectivefunction(current_list)
     i = 0
@@ -36,21 +22,7 @@ def stochastic_hill_climbing(list):
         plotarray.append(current_value)
         neighbor_list = neighbor(current_list)
         neighbor_value = objectivefunction(neighbor_list)
-<< << << < HEAD
-
         if neighbor_value > current_value:
-== == == =
-        while current_value >= neighbor_value:
-            neighbor_list = neighbor(current_list)
-            neighbor_value = objectivefunction(neighbor_list)
-            end = (datetime.datetime.now() - start).seconds
-            i += 1
-            print(i, " : ", current_value)
-            if end >= max_duration:
-                break
-
-        if neighbor_value > current_value:
->>>>>> > 2c0e0ad8b411470bab3f78a9b4ef9bb33a1a6ac5
             current_list = neighbor_list
             current_value = objectivefunction(current_list)
         end = (datetime.datetime.now() - start).seconds
@@ -61,7 +33,8 @@ def stochastic_hill_climbing(list):
             break
     return current_list
 
-def display_3d_cube(data,end):
+
+def display_3d_cube(data, end):
     fig = plt.figure(figsize=(10, 10))
     ax = fig.add_subplot(111, projection='3d')
 
@@ -89,12 +62,13 @@ def display_3d_cube(data,end):
     ax.set_xticklabels([])
     ax.set_yticklabels([])
     ax.set_zticklabels([])
-    if end==1:
+    if end == 1:
         plt.title("Final 3D Cube Visualization with Stochastic")
     else:
         plt.title("Initial 3D Cube Visualization with Stochastic")
 
     plt.show()
+
 
 def display_3d_cube(data, end):
     fig = plt.figure(figsize=(10, 10))
