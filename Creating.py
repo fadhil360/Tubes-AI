@@ -27,12 +27,12 @@ def listtomatrix(List):
     return matrixlist
 
 def matrixtolist(matrix):
-    initiallist=[]
+    listm=[]
     for i in matrix:
         for j in i:
             for k in j:
-                initialList.append(k)
-    return initialList
+                listm.append(k)
+    return listm
 
 
 def objectivefunction(arr):
@@ -106,20 +106,25 @@ def neighbor(list):
     #     neighbor[y] = a
     neighbor[x], neighbor[y] = neighbor[y], neighbor[x]
     return neighbor
+
+def highestneighbor(list):
+    neighbor = list[:]
+    highestpoint = -1
+    topneighbor = []
     
-initialList=initial()
-matrixlist =listtomatrix(initialList)
-a=objectivefunction([1, 42, 22, 53, 100, 81, 10, 68, 117, 44, 33, 46, 45, 98, 93, 28, 6, 48, 7, 18, 95, 120, 9, 97, 60, 38, 54, 125, 94, 70, 116, 83, 73, 39, 4, 40, 
-121, 84, 59, 11, 103, 66, 16, 43, 87, 56, 27, 85, 80, 67, 82, 118, 30, 110, 2, 113, 119, 105, 102, 72, 104, 13, 76, 55, 79, 29, 108, 78, 24, 58, 
-112, 115, 19, 122, 14, 25, 50, 37, 107, 96, 111, 99, 51, 31, 23, 88, 12, 65, 35, 41, 86, 21, 124, 92, 75, 5, 57, 64, 52, 34, 61, 17, 101, 89, 47, 71, 62, 36, 26, 15, 106, 32, 109, 74, 91, 69, 114, 49, 3, 77, 8, 90, 20, 123, 63])
-print("SCORE "+ str(a))
-print(initialList)
-for i in range(0,5):
-    print(matrixlist[i][0])
-    print(matrixlist[i][1])
-    print(matrixlist[i][2])
-    print(matrixlist[i][3])
-    print(matrixlist[i][4])
-    print("===============")
+    for i in range(0, 125):
+        for j in range(i + 1, 125):
+            neighbortemp = neighbor[:]
+            
+            # Swap elements
+            neighbortemp[i], neighbortemp[j] = neighbortemp[j], neighbortemp[i]
+            
+            # Check if this new neighbor is better
+            current_value = objectivefunction(neighbortemp)
+            if current_value >= highestpoint:
+                topneighbor = neighbortemp[:]
+                highestpoint = current_value
+    return topneighbor
+
     
     

@@ -2,6 +2,7 @@ from Creating import *
 import datetime
 import matplotlib.pyplot as plt
 
+<< << << < HEAD
 plotarray = []
 max_duration = int(input("duration (default = 120) = "))
 if max_duration > 0:
@@ -13,6 +14,19 @@ else:
 def stochastic_hill_climbing(list):
     global i
     i = 0
+
+
+== == == =
+plotarray = []
+max_duration = 120
+
+
+def stochastic_hill_climbing(list):
+    global i
+    i = 0
+
+
+>>>>>> > 2c0e0ad8b411470bab3f78a9b4ef9bb33a1a6ac5
     current_list = list[:]
     current_value = objectivefunction(current_list)
     i = 0
@@ -22,8 +36,21 @@ def stochastic_hill_climbing(list):
         plotarray.append(current_value)
         neighbor_list = neighbor(current_list)
         neighbor_value = objectivefunction(neighbor_list)
+<< << << < HEAD
 
         if neighbor_value > current_value:
+== == == =
+        while current_value >= neighbor_value:
+            neighbor_list = neighbor(current_list)
+            neighbor_value = objectivefunction(neighbor_list)
+            end = (datetime.datetime.now() - start).seconds
+            i += 1
+            print(i, " : ", current_value)
+            if end >= max_duration:
+                break
+
+        if neighbor_value > current_value:
+>>>>>> > 2c0e0ad8b411470bab3f78a9b4ef9bb33a1a6ac5
             current_list = neighbor_list
             current_value = objectivefunction(current_list)
         end = (datetime.datetime.now() - start).seconds
@@ -34,6 +61,40 @@ def stochastic_hill_climbing(list):
             break
     return current_list
 
+def display_3d_cube(data,end):
+    fig = plt.figure(figsize=(10, 10))
+    ax = fig.add_subplot(111, projection='3d')
+
+    # Create a 5x5x5 grid
+    x, y, z = np.meshgrid(range(5), range(5), range(5))
+
+    # Flatten data for easier iteration
+    values = np.array(data).flatten()
+    idx = 0
+
+    for xi, yi, zi in zip(x.flatten(), y.flatten(), z.flatten()):
+        # Set a unique color based on the value
+        color = plt.cm.viridis(values[idx] / max(values))
+        ax.text(xi, yi, zi, str(values[idx]), color=color,
+                ha='center', va='center', fontsize=10)
+        idx += 1
+
+    # Set plot limits and labels
+    ax.set_xlim(0, 4)
+    ax.set_ylim(0, 4)
+    ax.set_zlim(0, 4)
+    ax.set_xlabel("X")
+    ax.set_ylabel("Y")
+    ax.set_zlabel("Z")
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.set_zticklabels([])
+    if end==1:
+        plt.title("Final 3D Cube Visualization with Stochastic")
+    else:
+        plt.title("Initial 3D Cube Visualization with Stochastic")
+
+    plt.show()
 
 def display_3d_cube(data, end):
     fig = plt.figure(figsize=(10, 10))
