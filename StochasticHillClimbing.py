@@ -3,11 +3,7 @@ import datetime
 import matplotlib.pyplot as plt
 
 plotarray=[]
-max_duration = int(input("duration (default = 120) = "))
-if max_duration > 0:
-    truth = 1
-else:
-    max_duration = 120
+max_duration = 120
 
 
 def stochastic_hill_climbing(list):
@@ -88,8 +84,10 @@ def main():
     print(finalList)
     end = (datetime.datetime.now() - start)
     print("Total waktu : ", end)
+    print(initialList)
     initial_array = np.array(initialList).reshape((5, 5, 5))
     display_3d_cube(initial_array,2)
+    print(finalList)
     final_array = np.array(finalList).reshape((5, 5, 5))
     display_3d_cube(final_array,1)
     plt.plot(plotarray)

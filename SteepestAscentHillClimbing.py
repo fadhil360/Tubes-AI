@@ -3,16 +3,7 @@ import datetime
 import matplotlib.pyplot as plt
 
 plotarray=[]
-max_iteration = int(input("banyak iterasi (default = 1000) = "))
-if max_iteration > 0:
-    truth = 1
-else:
-    max_iteration = 1000
-max_duration = int(input("duration (default = 120) = "))
-if max_duration > 0:
-    truth = 1
-else:
-    max_duration = 120
+max_duration = 120
 
 
 def SteepestAscent_hill_climbing(list):
@@ -23,7 +14,7 @@ def SteepestAscent_hill_climbing(list):
     start = datetime.datetime.now()
     end = 0
     print(i, " : ", current_value)
-    while i < max_iteration:
+    while True:
         neighbor_list = highestneighbor(current_list)
         if current_value < objectivefunction(neighbor_list):
             current_value=objectivefunction(neighbor_list)
