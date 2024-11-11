@@ -40,7 +40,6 @@ def Simulated_Annealing(list):
         plotarray.append(current_value)
         neighbor_list = neighbor(current_list)
         neighbor_value = objectivefunction(neighbor_list)
-        temperature = max_temperature
 
         if neighbor_value > current_value:
             current_list = neighbor_list
@@ -54,11 +53,11 @@ def Simulated_Annealing(list):
             chance = random.randint(0, 100000)
             if chance != 0:
                 chance = chance/100000
-            if chance >= annealing:
+            if chance <= annealing:
                 current_list = neighbor_list
                 current_value = objectivefunction(current_list)
+                temperature = max_temperature
                 stuck += 1
-                break
             temperature -= 1
         else:
             truth = 1
