@@ -12,11 +12,6 @@ import math
 plotarray=[]
 temperaturplot=[]
 temperaturploti=[]
-max_iteration = int(input("banyak iterasi (default = 1000) = "))
-if max_iteration > 0:
-    truth = 1
-else:
-    max_iteration = 1000
 max_duration = int(input("duration (default = 120) = "))
 if max_duration > 0:
     truth = 1
@@ -32,49 +27,49 @@ stuck = 0
 
 def Simulated_Annealing(list):
     global stuck
-    global i 
-    i=0
+    global i
+    i = 0
     current_list = list[:]
     current_value = objectivefunction(current_list)
+    temperature = max_temperature  # Set suhu awal
+    cooling_rate = 0.99  # Nilai cooling rate untuk pendinginan bertahap
 
     start = datetime.datetime.now()
     end = 0
-    while i < max_iteration:
+    while True:
         print(i, " : ", current_value)
         plotarray.append(current_value)
+
+        # Pilih tetangga secara acak
         neighbor_list = neighbor(current_list)
         neighbor_value = objectivefunction(neighbor_list)
-        temperature = max_temperature
 
-        while current_value >= neighbor_value:
-            neighbor_list = neighbor(current_list)
-            neighbor_value = objectivefunction(neighbor_list)
+        # Hitung probabilitas untuk menerima solusi yang lebih buruk
+        if neighbor_value < current_value:
+            annealing = math.exp((neighbor_value - current_value) / temperature)
+            temperaturplot.append(annealing)
+            temperaturploti.append(i)
 
-            if neighbor_value < current_value:
-                if temperature != 0:
-                    annealing = math.exp(
-                        (neighbor_value - current_value) / temperature)
-                    temperaturplot.append(annealing)
-                    temperaturploti.append(i)
-                chance = random.randint(0, 100000)
-                if chance != 0:
-                    chance = chance/100000
-                if chance >= annealing:
-                    stuck += 1
-                    break
-                temperature -= 1
+            # Acak nilai peluang untuk memutuskan apakah solusi yang lebih buruk diterima
+            chance = random.random()  # Menghasilkan nilai antara 0 dan 1
+            if chance < annealing:
+                current_list = neighbor_list  # Terima solusi lebih buruk
+                current_value = neighbor_value
+            else:
+                stuck += 1  # Hitung jumlah stuck
+        else:
+            # Jika tetangga lebih baik, terima langsung
+            current_list = neighbor_list
+            current_value = neighbor_value
 
-            end = (datetime.datetime.now() - start).seconds
-            if end >= max_duration:
-                break
+        # Kurangi suhu setelah setiap iterasi
+        temperature *= cooling_rate
+        end = (datetime.datetime.now() - start).seconds
 
-        current_list = neighbor_list
-        neighbor_list = neighbor(current_list)
-        current_value = objectivefunction(current_list)
-        neighbor_value = objectivefunction(neighbor_list)
-        i += 1
+        # Cek batas waktu
         if end >= max_duration:
             break
+        i += 1
 
     print(i, " : ", current_value)
     return current_list

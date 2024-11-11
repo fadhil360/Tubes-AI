@@ -130,9 +130,9 @@ def display_3d_cube(data,end):
     ax.set_yticklabels([])
     ax.set_zticklabels([])
     if end==1:
-        plt.title("Final 3D Cube Visualization with Stochastic")
+        plt.title("Final 3D Cube Visualization with Genetic")
     else:
-        plt.title("Initial 3D Cube Visualization with Stochastic")
+        plt.title("Initial 3D Cube Visualization with Genetic")
 
     plt.show()
 
@@ -146,6 +146,10 @@ def geneticAlgorithm(): # sementara
     highestoffspring=0
     highestoffspringarray=[]
     populationList, probability = population(jumlahPopulasi)
+    for off in populationList:
+        if highestoffspring<objectivefunction(off):
+            highestoffspring=objectivefunction(off)
+            initialList=off
     for i in range(jumlahIterasi):
         if len(nextoffspring)!=0:
             populationList, probability =nextPopulation(nextoffspring)
@@ -166,6 +170,8 @@ def geneticAlgorithm(): # sementara
     print("Jumlah populasi= ",jumlahPopulasi)
     print("Banyak iterasi= ",jumlahIterasi)
     print("Durasi proses pencarian= ",(datetime.datetime.now() - start))
+    initial_array = np.array(initialList).reshape((5, 5, 5))
+    display_3d_cube(initial_array,2)
     final_array = np.array(highestoffspringarray).reshape((5, 5, 5))
     display_3d_cube(final_array,1)
     # print(objectivefunction(offspring1))
