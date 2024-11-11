@@ -42,33 +42,28 @@ def Simulated_Annealing(list):
         neighbor_value = objectivefunction(neighbor_list)
         temperature = max_temperature
 
-        while current_value >= neighbor_value:
-            neighbor_list = neighbor(current_list)
-            neighbor_value = objectivefunction(neighbor_list)
-
-            if neighbor_value < current_value:
-                if temperature != 0:
-                    annealing = math.exp(
-                        (neighbor_value - current_value) / temperature)
-                    temperaturplot.append(annealing)
-                    temperaturploti.append(i)
-                chance = random.randint(0, 100000)
-                if chance != 0:
-                    chance = chance/100000
-                if chance >= annealing:
-                    stuck += 1
-                    break
-                temperature -= 1
-
-            end = (datetime.datetime.now() - start).seconds
-            if end >= max_duration:
+        if neighbor_value > current_value:
+            current_list = neighbor_list
+            current_value = objectivefunction(current_list)
+        elif neighbor_value < current_value:
+            if temperature != 0:
+                annealing = math.exp(
+                    (neighbor_value - current_value) / temperature)
+                temperaturplot.append(annealing)
+                temperaturploti.append(i)
+            chance = random.randint(0, 100000)
+            if chance != 0:
+                chance = chance/100000
+            if chance >= annealing:
+                current_list = neighbor_list
+                current_value = objectivefunction(current_list)
+                stuck += 1
                 break
-
-        current_list = neighbor_list
-        neighbor_list = neighbor(current_list)
-        current_value = objectivefunction(current_list)
-        neighbor_value = objectivefunction(neighbor_list)
+            temperature -= 1
+        else:
+            truth = 1
         i += 1
+        end = (datetime.datetime.now() - start).seconds
         if end >= max_duration:
             break
 
@@ -90,7 +85,7 @@ print(finalList)
 
 end = (datetime.datetime.now() - start)
 print("Total waktu : ", end)
-print("Frekuensi stuck : ", stuck/i)
+print("Frekuensi stuck : ", stuck)
 print("Total iterasi : ", i)
 # Visualization code
 
