@@ -32,7 +32,7 @@ def Simulated_Annealing(list):
     current_list = list[:]
     current_value = objectivefunction(current_list)
     temperature = max_temperature  # Set suhu awal
-    cooling_rate = 0.99  # Nilai cooling rate untuk pendinginan bertahap
+    cooling_rate = 0.99  
 
     start = datetime.datetime.now()
     end = 0
@@ -62,11 +62,11 @@ def Simulated_Annealing(list):
             current_list = neighbor_list
             current_value = neighbor_value
 
-        # Kurangi suhu setelah setiap iterasi
+    
         temperature *= cooling_rate
         end = (datetime.datetime.now() - start).seconds
 
-        # Cek batas waktu
+
         if end >= max_duration:
             break
         i += 1
