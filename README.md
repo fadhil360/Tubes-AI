@@ -53,6 +53,5 @@ Setelah di run menghasilkan output state awal, state akhir, total waktu, total i
 <img src="galeri\image.png"></img>
 <img src="galeri\Screenshot 2024-11-11 203142.png"></img>
  <img src="galeri\Screenshot 2024-11-11 211403.png"></img>
-   <img src="galeri\Screenshot 2024-11-11 225658.png"></img>
 
  
