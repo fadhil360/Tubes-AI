@@ -3,11 +3,6 @@ import datetime
 import matplotlib.pyplot as plt
 
 plotarray=[]
-max_iteration = int(input("banyak iterasi (default = 1000) = "))
-if max_iteration > 0:
-    truth = 1
-else:
-    max_iteration = 1000
 max_duration = int(input("duration (default = 120) = "))
 if max_duration > 0:
     truth = 1
@@ -23,8 +18,7 @@ def stochastic_hill_climbing(list):
     i = 0
     start = datetime.datetime.now()
     end = 0
-    while i < max_iteration:
-        print(i, " : ", current_value)
+    while True:
         plotarray.append(current_value)
         neighbor_list = neighbor(current_list)
         neighbor_value = objectivefunction(neighbor_list)
@@ -32,6 +26,8 @@ def stochastic_hill_climbing(list):
             neighbor_list = neighbor(current_list)
             neighbor_value = objectivefunction(neighbor_list)
             end = (datetime.datetime.now() - start).seconds
+            i += 1
+            print(i, " : ", current_value)
             if end >= max_duration:
                 break
         
@@ -43,7 +39,6 @@ def stochastic_hill_climbing(list):
         
         if end >= max_duration:
             break
-        i += 1
     return current_list
 
 def display_3d_cube(data,end):
